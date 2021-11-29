@@ -1,0 +1,10 @@
+
+const actions = {
+    SET_PEER: "SET_PEER",
+    SET_CONNECTION: "SET_CONNECTION",
+    STORE_CONNECTION: "STORE_CONNECTION",
+    SEND_MSG: "SEND_MSG",
+    RECEIVE_MSG: "RECEIVE_MSG"
+}
+
+export default actions
