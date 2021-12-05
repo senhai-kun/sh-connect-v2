@@ -91,6 +91,8 @@ const Videoplayer = () => {
         }
         console.log(videoRef.current.getCurrentTime().toFixed(1))
         pausePlay(data)
+        clearTimeout(hideControlsRef.current)
+        setHideControls(false)
     }
 
     const onRewind = () => {
