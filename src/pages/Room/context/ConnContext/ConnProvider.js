@@ -1,16 +1,35 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
 
 export const Conncontext = createContext();
 
-const ConnProvider = ({ children }) => {
-    const [ connected, setConnected ] = useState(false)
+const initialState = {
+    conn: false
+}
 
-    const ok = () => {
-        setConnected(true)
-        console.log("ok")
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'CONN': 
+        return {
+            conn: action.data
+        }
+        default: return state
     }
+}
 
-    const value = { connected, ok }
+const ConnProvider = ({ children }) => {
+    const [ state, dispatch ] = useReducer(reducer, initialState)
+
+    const value = { 
+        state, 
+        connectPeer: () => {
+            let data = true
+            dispatch({ type: 'CONN', data })
+        },
+        disconnectPeer: () => {
+            let data = false
+            dispatch({ type: 'CONN', data })
+        }
+    }
 
     return (
         <Conncontext.Provider value={value} >

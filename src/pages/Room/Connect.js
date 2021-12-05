@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Avatar, Button, Container, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import { Box } from '@mui/system';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -15,14 +15,12 @@ const styles = makeStyles( () => ({
         transform: 'translate(-50%, -50%)', 
         textAlign: 'center'
     },
-    copy: {
-        marginLeft: 10
-    },
     avatar: {
         width: '200px',
         height: '100%',
         margin: 'auto',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        borderRadius: '50%'
     }
 }) )
 
@@ -30,7 +28,7 @@ const Connect = () => {
     const classes = styles()
     const [ peerId ] = useState(Math.floor(Math.random() * (9999 - 1000) ) + 1000)
     const { initializePeer, createConnection } = useContext(PeerContext)
-    const { ok } = useContext(Conncontext)
+    const { connectPeer } = useContext(Conncontext)
 
     const [ copy, setCopy ] = useState(false)
     const [ connect, setConnect ] = useState('')
@@ -43,30 +41,30 @@ const Connect = () => {
     const connectTo = () => {
         setLoading(true)
         createConnection(connect)
-        ok()
+        connectPeer()
     }
 
     return (    
         <Container maxWidth="sm"className={classes.box} >
             <Box  >
-                <Avatar 
+                <img 
                     src="https://i.pinimg.com/originals/67/39/c8/6739c8635e734d0006fa9508f772e333.png"
                     className={classes.avatar}
+                    alt="logo"
                 />
 
                 <Typography variant="h4" >Connect</Typography>
 
                 <Stack direction="row" marginTop={3} alignItems="center" >
                     <Typography align="left" >Your ID: </Typography>
-                    <Typography marginLeft={2} color="bisque" >{peerId}</Typography>
+                    <Typography marginLeft={2} marginRight={2} color="bisque" >{peerId}</Typography>
 
                     <CopyToClipboard text={peerId} >
-                        <Button className={classes.copy} size="small" variant="outlined" onClick={ () => setCopy(true) } disabled={copy} >{ copy ? "Copied" : "Copy" }</Button>
+                        <Button size="small" variant="outlined" onClick={ () => setCopy(true) } disabled={copy} >{ copy ? "Copied" : "Copy" }</Button>
                     </CopyToClipboard>
                 </Stack>
 
                 <Connectionfield connect={connect} setConnect={setConnect} loading={loading} setLoading={setLoading} connectTo={connectTo} />
-                <Button >on</Button>
             </Box>
         </Container>
     );

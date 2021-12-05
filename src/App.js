@@ -32,7 +32,7 @@ function App() {
         <ConnProvider>
           <Router>
             <Routes>
-              <Route exact path="/" element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route path="/room" element={<Room />} />
             </Routes>
           </Router>

@@ -20,8 +20,8 @@ const style = makeStyles( (theme) => ({
         borderRadius: 5
     },
     icon: {
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         borderRadius: '50%'
     },
     title: {
@@ -41,10 +41,17 @@ const SearchResult = ({ result }) => {
     const { playVideo } = useContext(StateContext)
 
     const select = (i) => {
+        console.log(i);
         let data = {
             from: localStorage.getItem('username'),
+            title: i.title,
             url: i.url,
-            type: 'changeUrl'
+            channelIcon: i.channelIcon,
+            channelName: i.channelName,
+            views: i.views,
+            uploaded: i.uploaded,
+            type: 'changeVideoUrl', // type of dispatch to determine if pause play or changeVideoUrl
+            videoType: 'youtube' // indicates whether youtube or direct url
         }
         playVideo(data)
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -66,12 +73,13 @@ const SearchResult = ({ result }) => {
                             </div>
                         </div>
 
-                        <Stack direction="row" spacing={1} >
-                            <img className={classes.icon} src={i.channelIcon} alt={i.channelName}/>
+                        <Stack  spacing={1} >
+                            <Typography className={classes.title} >{i.title}</Typography>
                             
-                            <Stack>
-                                <Typography className={classes.title} >{i.title}</Typography>
-                                <Stack className={classes.caption}>
+                            <Stack direction="row" spacing={0.5} className={classes.caption}>
+                                <img className={classes.icon} src={i.channelIcon} alt={i.channelName}/>
+                                
+                                <Stack>
                                     <Typography variant="caption" >{i.channelName}</Typography>
                                     <Typography variant="caption" >{i.uploaded}</Typography>
                                     <Typography variant="caption" >{i.views} views</Typography>                                    

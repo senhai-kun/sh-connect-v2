@@ -7,8 +7,8 @@ import axios from 'axios'
 
 const styles = makeStyles( (theme) => ({
     wrapper: {
-        padding: theme.spacing(1),
-        marginTop: theme.spacing(1)
+        // padding: theme.spacing(1),
+        marginTop: theme.spacing(2)
     },
     searchBtn: {
         backgroundColor: 'rgba(0,0,0,0.5)'
@@ -36,6 +36,7 @@ const Searchbar = ({ setSearchResult }) => {
     }, [searching])
 
     const search = (e) => {
+        e.preventDefault()
         if(query.length !== 0) {
             setOpen(false)
             setSearching(true)
@@ -61,39 +62,43 @@ const Searchbar = ({ setSearchResult }) => {
     }
 
     return (
+        <form onSubmit={search}>
+
         <Stack direction="row" className={classes.wrapper} >
-            <Autocomplete 
-                freeSolo
-                fullWidth
-                options={suggest}
-                value={query}
-                onChange={ (e) => onChange(e), search}
-                onClose={() => setOpen(false)}
-                open={open}
-                disableClearable
-                renderInput={ (params) => (
-                    <TextField 
-                        {...params}
-                        color="primary"
-                        placeholder="Search youtube title..."
-                        variant="outlined"
-                        fullWidth
-                        size="small"
-                        InputProps={{ 
-                            ...params.InputProps, 
-                            type: 'search', 
-                            style: { backgroundColor: '#121212'}
-                        }}
-                        value={query}
-                        onChange={ (e) => setQuery(e.target.value) }
-                    />
-                )}
-            />
-           
-            <Button onClick={search} className={classes.searchBtn} disableFocusRipple >
-                {searching ? <CircularProgress size={22} color="inherit" /> : <SearchIcon />}
-            </Button>
+                <Autocomplete 
+                    freeSolo
+                    fullWidth
+                    options={suggest}
+                    value={query}
+                    onChange={ (e) => onChange(e), search}
+                    onClose={() => setOpen(false)}
+                    open={open}
+                    disableClearable
+                    renderInput={ (params) => (
+                        <TextField 
+                            {...params}
+                            color="primary"
+                            placeholder="Search youtube title..."
+                            variant="outlined"
+                            fullWidth
+                            size="small"
+                            InputProps={{ 
+                                ...params.InputProps, 
+                                type: 'search', 
+                                style: { backgroundColor: '#121212'}
+                            }}
+                            value={query}
+                            onChange={ (e) => setQuery(e.target.value) }
+                        />
+                    )}
+                />
+            
+                <Button type="submit" className={classes.searchBtn} disableFocusRipple >
+                    {searching ? <CircularProgress size={22} color="inherit" /> : <SearchIcon />}
+                </Button>
         </Stack>
+        </form>
+
     );
 }
 

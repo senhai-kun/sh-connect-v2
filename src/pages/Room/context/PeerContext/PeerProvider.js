@@ -14,9 +14,6 @@ const Peerprovider = ({ children }) => {
                 console.log('connection peer', connection)
                 dispatch({ type: actions.STORE_CONNECTION, connection })
             } )
-            // state.conn.on('data', (msg) => {
-            //     dispatch({ type: actions.RECEIVE_MSG, msg })
-            // } )
         }
     }, [state.peer, state.conn])
 

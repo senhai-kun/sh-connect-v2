@@ -50,7 +50,6 @@ const Login = () => {
                         <Stack direction="row" >
                             <Typography>Entering as:  </Typography>
                             <Typography marginLeft={1} color="bisque" style={{ textDecoration: 'underline', cursor: 'pointer' }} >{username}</Typography>
-                            {/* <Typography>change</Typography> */}
                         </Stack>
 
                         <TextField

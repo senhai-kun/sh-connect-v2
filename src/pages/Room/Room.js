@@ -1,21 +1,36 @@
-import React, { useEffect, useRef, useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Conncontext } from './context/ConnContext/ConnProvider';
 import Peerprovider from './context/PeerContext/PeerProvider';
 import StateProvider from './context/StateContext/StateProvider';
 import Searchbar from './fields/SearchBar';
-import { Button, Container as MuiContainer, TextField, Typography } from '@mui/material';
+import { Container as MuiContainer } from '@mui/material';
 import Connect from './Connect';
 import Videoplayer from './video/VideoPlayer';
 import SearchResult from './yt/SearchResult';
 
 const Room = () => {
-    const { connected } = useContext(Conncontext)
+    const { state } = useContext(Conncontext)
+    
+    const preventRefresh = (e) => {
+        if(state.conn) {
+            e.preventDefault();
+            e.returnValue = "";
+        }
+    }
+
+    useEffect( () => {
+        window.addEventListener("beforeunload", preventRefresh);
+        return () => {
+          window.removeEventListener("beforeunload", preventRefresh);
+        };
+    }, [] )
+
     return (
         <Peerprovider >
             <StateProvider>
                 <MuiContainer maxWidth="lg" >
-                    {connected ? <Container /> : <Connect /> }
-                    {/* <Container /> */}
+                    {/* {state.conn ? <Container /> : <Connect /> } */}
+                    <Container />
                 </MuiContainer>
             </StateProvider>
         </Peerprovider>
