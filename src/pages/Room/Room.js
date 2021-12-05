@@ -29,8 +29,8 @@ const Room = () => {
         <Peerprovider >
             <StateProvider>
                 <MuiContainer maxWidth="lg" >
-                    {/* {state.conn ? <Container /> : <Connect /> } */}
-                    <Container />
+                    {state.conn ? <Container /> : <Connect /> }
+                    {/* <Container /> */}
                 </MuiContainer>
             </StateProvider>
         </Peerprovider>
